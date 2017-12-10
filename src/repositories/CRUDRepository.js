@@ -1,5 +1,6 @@
 /**
  * Created by Harrison on 06/12/2017.
+ * abstract repository used by the application.
  */
 
 import { Database } from '../config/Database';
