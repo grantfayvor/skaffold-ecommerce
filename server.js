@@ -9,6 +9,7 @@ var _Database = require('./production/config/Database');
 
 /**
  * Created by Harrison on 05/12/2017.
+ * es6 version for server.js. bootstraps the application
  */
 
 var express = require('express'),

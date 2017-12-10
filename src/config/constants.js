@@ -1,5 +1,6 @@
 /**
  * Created by Harrison on 05/12/2017.
+ * defines constants used by the application.
  */
 export var constants = {
 

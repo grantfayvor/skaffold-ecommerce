@@ -1,5 +1,6 @@
 /**
  * Created by Harrison on 05/12/2017.
+ * describes routes for the application
  */
 
 import { app } from '../../server';

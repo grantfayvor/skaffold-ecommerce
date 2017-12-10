@@ -1,5 +1,6 @@
 /**
  * Created by Harrison on 05/12/2017.
+ * defines the database connection for the application.
  */
 
 import { constants } from '../config/constants.js';

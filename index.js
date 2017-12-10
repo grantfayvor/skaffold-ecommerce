@@ -1,5 +1,6 @@
 /**
  * Created by Harrison on 05/12/2017.
+ * es6 version for server.js. bootstraps the application
  */
 
 const express = require('express'),

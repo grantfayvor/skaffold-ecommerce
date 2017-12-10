@@ -6,6 +6,7 @@ var _ProductController = require('../controllers/ProductController');
 
 /**
  * Created by Harrison on 05/12/2017.
+ * describes routes for the application
  */
 
 var _productController = new _ProductController.ProductController();

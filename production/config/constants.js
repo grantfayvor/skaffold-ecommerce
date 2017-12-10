@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 /**
  * Created by Harrison on 05/12/2017.
+ * defines constants used by the application.
  */
 var constants = exports.constants = {
 
