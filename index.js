@@ -5,9 +5,9 @@
 const express = require('express'),
     bodyParser = require('body-parser'),
     _chalk = require('chalk'),
+    _config = require('./config'),
     _notifier = _chalk.bold.blue;
 
-import { config } from './config';
 import { Database } from './production/config/Database';
 
 export const app = express();
@@ -24,4 +24,4 @@ let promise = new Promise((resolve, reject) => {
             + server.address().address + ":" + server.address().port + " ___________ . . ."));
     });
 }).then(new Database())
-    .then((config.app.es6) ? require('./src/config/routes') : require('./production/config/routes'));
+    .then((_config.app.es6) ? require('./src/config/routes') : require('./production/config/routes'));

@@ -5,8 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.app = undefined;
 
-var _config = require('./config');
-
 var _Database = require('./production/config/Database');
 
 /**
@@ -16,6 +14,7 @@ var _Database = require('./production/config/Database');
 var express = require('express'),
     bodyParser = require('body-parser'),
     _chalk = require('chalk'),
+    _config = require('./config'),
     _notifier = _chalk.bold.blue;
 
 var app = exports.app = express();
@@ -30,4 +29,4 @@ var promise = new Promise(function (resolve, reject) {
         console.log(_notifier("  ===\\/====\\/"));
         console.log(_notifier("> server listening at http://" + server.address().address + ":" + server.address().port + " ___________ . . ."));
     });
-}).then(new _Database.Database()).then(_config.config.app.es6 ? require('./src/config/routes') : require('./production/config/routes'));
+}).then(new _Database.Database()).then(_config.app.es6 ? require('./src/config/routes') : require('./production/config/routes'));
