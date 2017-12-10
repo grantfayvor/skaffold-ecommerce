@@ -26,7 +26,7 @@ var _mysql = require('mysql'),
     _successNotifier = _chalk.bold.green,
     _notifier = _chalk.bold.blue;
 
-var Database = function () {
+var Database = exports.Database = function () {
     function Database() {
         _classCallCheck(this, Database);
 
@@ -106,5 +106,3 @@ var Database = function () {
 
     return Database;
 }();
-
-exports.Database = Database;

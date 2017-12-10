@@ -1,52 +1,48 @@
 /**
- * Created by Harrison on 07/12/2017.
+ * Created by Harrison on 10/12/2017.
  */
 
-import { UserRepository } from '../repositories/UserRepository';
+import { CategoryRepository } from '../repositories/CategoryRepository';
 
 const _repository = Symbol('repository');
 
-export class UserService {
+export class CategoryService {
 
     constructor() {
-        this[_repository] = new UserRepository();
+        this[_repository] = new CategoryRepository();
     }
 
-    authenticateUser(username, password, callback) {
-
-    }
-
-    saveUser(user, callback) {
-        this[_repository].save(user, result => {
+    saveCategory(category, callback) {
+        this[_repository].save(category, result => {
             callback(result);
         });
     }
 
-    findUsers(callback) {
+    findCategories(callback) {
         this[_repository].findAll(result => {
             callback(result);
         });
     }
 
-    findUserById(id, callback) {
+    findCategoryById(id, callback) {
         this[_repository].findById(id, result => {
             callback(result);
         });
     }
 
-    findUserByParam(paramName, paramValue, callback) {
+    findCategoryByParam(paramName, paramValue, callback) {
         this[_repository].findByParam(paramName, paramValue, result => {
             callback(result);
         });
     }
 
-    updateUser(user, id, callback) {
-        this[_repository].update(user, id, result => {
+    updateCategory(category, id, callback) {
+        this[_repository].update(category, id, result => {
             callback(result);
         });
     }
 
-    deleteUser(id, callback) {
+    deleteCategory(id, callback) {
         this[_repository].delete(id, result => {
             callback(result);
         });

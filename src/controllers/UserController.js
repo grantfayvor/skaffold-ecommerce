@@ -7,7 +7,7 @@ import { User } from '../models/User';
 
 const _userService = Symbol('userService');
 
-class UserController {
+export class UserController {
 
     constructor() {
         this[_userService] = new UserService();
@@ -59,5 +59,3 @@ class UserController {
         });
     }
 }
-
-export { UserController }

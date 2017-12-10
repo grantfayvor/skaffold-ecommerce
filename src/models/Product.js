@@ -8,7 +8,7 @@ const _name = Symbol('name'),
     _categoryId = Symbol('categoryId'),
     _image = Symbol('image');
 
-class Product {
+export class Product {
 
     constructor(name, brand, price, categoryId) {
         this[_name] = name;
@@ -57,5 +57,3 @@ class Product {
         };
     }
 }
-
-export { Product }

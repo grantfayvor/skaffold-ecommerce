@@ -7,7 +7,7 @@ import { ProductRepository } from '../repositories/ProductRepository';
 const _fileSystem = require('fs'),
     _repository = Symbol('repository');
 
-class ProductService {
+export class ProductService {
 
     constructor() {
         this[_repository] = new ProductRepository();
@@ -56,5 +56,3 @@ class ProductService {
         });
     }
 }
-
-export { ProductService }

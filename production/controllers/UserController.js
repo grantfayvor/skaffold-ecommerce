@@ -17,7 +17,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var _userService = Symbol('userService');
 
-var UserController = function () {
+var UserController = exports.UserController = function () {
     function UserController() {
         _classCallCheck(this, UserController);
 
@@ -80,5 +80,3 @@ var UserController = function () {
 
     return UserController;
 }();
-
-exports.UserController = UserController;

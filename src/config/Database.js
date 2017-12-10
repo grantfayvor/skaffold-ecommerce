@@ -17,7 +17,7 @@ const _mysql = require('mysql'),
     _successNotifier = _chalk.bold.green,
     _notifier = _chalk.bold.blue;
 
-class Database {
+export class Database {
 
     constructor() {
         this[_connection] = _mysql.createConnection(constants.database);
@@ -87,5 +87,3 @@ class Database {
         return this[_connection];
     }
 }
-
-export { Database }

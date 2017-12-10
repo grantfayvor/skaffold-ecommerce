@@ -15,7 +15,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 * Created by Harrison on 06/12/2017.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
-var ProductRepository = function (_CRUDRepository) {
+var ProductRepository = exports.ProductRepository = function (_CRUDRepository) {
     _inherits(ProductRepository, _CRUDRepository);
 
     function ProductRepository() {
@@ -26,5 +26,3 @@ var ProductRepository = function (_CRUDRepository) {
 
     return ProductRepository;
 }(_CRUDRepository2.CRUDRepository);
-
-exports.ProductRepository = ProductRepository;

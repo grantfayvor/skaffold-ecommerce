@@ -17,7 +17,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var _productService = Symbol('productService');
 
-var ProductController = function () {
+var ProductController = exports.ProductController = function () {
     function ProductController() {
         _classCallCheck(this, ProductController);
 
@@ -72,5 +72,3 @@ var ProductController = function () {
 
     return ProductController;
 }();
-
-exports.ProductController = ProductController;

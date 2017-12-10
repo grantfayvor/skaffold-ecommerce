@@ -16,7 +16,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var _fileSystem = require('fs'),
     _repository = Symbol('repository');
 
-var ProductService = function () {
+var ProductService = exports.ProductService = function () {
     function ProductService() {
         _classCallCheck(this, ProductService);
 
@@ -76,5 +76,3 @@ var ProductService = function () {
 
     return ProductService;
 }();
-
-exports.ProductService = ProductService;

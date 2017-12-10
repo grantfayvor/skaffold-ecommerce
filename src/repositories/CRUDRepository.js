@@ -10,7 +10,7 @@ const _tableName = Symbol('tableName'),
     _successNotifier = _chalk.bold.green,
     _errorNotifier = _chalk.bold.red;
 
-class CRUDRepository {
+export class CRUDRepository {
 
     constructor(tableName) {
         this._connection = Database.getConnection();
@@ -84,5 +84,3 @@ class CRUDRepository {
     }
 
 }
-
-export { CRUDRepository }

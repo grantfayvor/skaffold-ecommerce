@@ -6,7 +6,7 @@ const _name = Symbol('name'),
     _email = Symbol('email'),
     _password = Symbol('password');
 
-class User {
+export class User {
 
     constructor(name, email, password) {
         this[_name] = name;
@@ -42,5 +42,3 @@ class User {
         };
     }
 }
-
-export { User }

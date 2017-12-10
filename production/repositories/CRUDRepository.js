@@ -19,7 +19,7 @@ var _tableName = Symbol('tableName'),
     _successNotifier = _chalk.bold.green,
     _errorNotifier = _chalk.bold.red;
 
-var CRUDRepository = function () {
+var CRUDRepository = exports.CRUDRepository = function () {
     function CRUDRepository(tableName) {
         _classCallCheck(this, CRUDRepository);
 
@@ -103,5 +103,3 @@ var CRUDRepository = function () {
 
     return CRUDRepository;
 }();
-
-exports.CRUDRepository = CRUDRepository;

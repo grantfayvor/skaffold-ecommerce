@@ -3,71 +3,68 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.UserService = undefined;
+exports.CategoryService = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Created by Harrison on 07/12/2017.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Created by Harrison on 10/12/2017.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       */
 
-var _UserRepository = require('../repositories/UserRepository');
+var _CategoryRepository = require('../repositories/CategoryRepository');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var _repository = Symbol('repository');
 
-var UserService = exports.UserService = function () {
-    function UserService() {
-        _classCallCheck(this, UserService);
+var CategoryService = exports.CategoryService = function () {
+    function CategoryService() {
+        _classCallCheck(this, CategoryService);
 
-        this[_repository] = new _UserRepository.UserRepository();
+        this[_repository] = new _CategoryRepository.CategoryRepository();
     }
 
-    _createClass(UserService, [{
-        key: 'authenticateUser',
-        value: function authenticateUser(username, password, callback) {}
-    }, {
-        key: 'saveUser',
-        value: function saveUser(user, callback) {
-            this[_repository].save(user, function (result) {
+    _createClass(CategoryService, [{
+        key: 'saveCategory',
+        value: function saveCategory(category, callback) {
+            this[_repository].save(category, function (result) {
                 callback(result);
             });
         }
     }, {
-        key: 'findUsers',
-        value: function findUsers(callback) {
+        key: 'findCategories',
+        value: function findCategories(callback) {
             this[_repository].findAll(function (result) {
                 callback(result);
             });
         }
     }, {
-        key: 'findUserById',
-        value: function findUserById(id, callback) {
+        key: 'findCategoryById',
+        value: function findCategoryById(id, callback) {
             this[_repository].findById(id, function (result) {
                 callback(result);
             });
         }
     }, {
-        key: 'findUserByParam',
-        value: function findUserByParam(paramName, paramValue, callback) {
+        key: 'findCategoryByParam',
+        value: function findCategoryByParam(paramName, paramValue, callback) {
             this[_repository].findByParam(paramName, paramValue, function (result) {
                 callback(result);
             });
         }
     }, {
-        key: 'updateUser',
-        value: function updateUser(user, id, callback) {
-            this[_repository].update(user, id, function (result) {
+        key: 'updateCategory',
+        value: function updateCategory(category, id, callback) {
+            this[_repository].update(category, id, function (result) {
                 callback(result);
             });
         }
     }, {
-        key: 'deleteUser',
-        value: function deleteUser(id, callback) {
+        key: 'deleteCategory',
+        value: function deleteCategory(id, callback) {
             this[_repository].delete(id, function (result) {
                 callback(result);
             });
         }
     }]);
 
-    return UserService;
+    return CategoryService;
 }();

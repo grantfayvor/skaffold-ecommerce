@@ -4,11 +4,9 @@
 
 import { CRUDRepository } from './CRUDRepository';
 
-class ProductRepository extends CRUDRepository {
+export class ProductRepository extends CRUDRepository {
 
     constructor() {
         super('products');
     }
 }
-
-export { ProductRepository }

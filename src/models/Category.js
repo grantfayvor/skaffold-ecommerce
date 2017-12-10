@@ -4,7 +4,7 @@
 
 const _name = Symbol('name');
 
-class Category {
+export class Category {
 
     constructor(name) {
         this[_name] = name;

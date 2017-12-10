@@ -7,7 +7,7 @@ import { Product } from '../models/Product';
 
 const _productService = Symbol('productService');
 
-class ProductController {
+export class ProductController {
 
     constructor() {
         this[_productService] = new ProductService();
@@ -55,5 +55,3 @@ class ProductController {
         });
     }
 }
-
-export { ProductController }

@@ -16,7 +16,7 @@ var _name = Symbol('name'),
     _email = Symbol('email'),
     _password = Symbol('password');
 
-var User = function () {
+var User = exports.User = function () {
     function User(name, email, password) {
         _classCallCheck(this, User);
 
@@ -58,5 +58,3 @@ var User = function () {
 
     return User;
 }();
-
-exports.User = User;

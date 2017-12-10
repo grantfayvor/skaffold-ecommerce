@@ -18,7 +18,7 @@ var _name = Symbol('name'),
     _categoryId = Symbol('categoryId'),
     _image = Symbol('image');
 
-var Product = function () {
+var Product = exports.Product = function () {
     function Product(name, brand, price, categoryId) {
         _classCallCheck(this, Product);
 
@@ -73,5 +73,3 @@ var Product = function () {
 
     return Product;
 }();
-
-exports.Product = Product;

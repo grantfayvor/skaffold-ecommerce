@@ -4,11 +4,9 @@
 
 import { CRUDRepository } from './CRUDRepository';
 
-class UserRepository extends CRUDRepository{
+export class UserRepository extends CRUDRepository{
 
     constructor() {
         super('users');
     }
 }
-
-export { UserRepository }
