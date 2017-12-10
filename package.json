@@ -1,0 +1,24 @@
+{
+  "name": "express-test",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
+    "multer": "^1.3.0",
+    "mysql": "^2.15.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build" : "babel src --watch --out-dir production",
+    "server" : "babel index.js --watch --out-file server.js"
+  },
+  "author": "Harrison Favour",
+  "license": "MIT"
+}
