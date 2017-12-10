@@ -5,14 +5,16 @@
 const _name = Symbol('name'),
     _brand = Symbol('brand'),
     _price = Symbol('price'),
+    _categoryId = Symbol('categoryId'),
     _image = Symbol('image');
 
 class Product {
 
-    constructor(name, brand, price) {
+    constructor(name, brand, price, categoryId) {
         this[_name] = name;
         this[_brand] = brand;
         this[_price] = price;
+        this[_categoryId] = categoryId;
     }
 
     getName() {
@@ -21,6 +23,10 @@ class Product {
 
     getPrice() {
         return this[_price];
+    }
+
+    getCategoryId() {
+        return this[_categoryId];
     }
 
     setImage(image) {
@@ -36,6 +42,7 @@ class Product {
             'name',
             'brand',
             'price',
+            'categoryId',
             'image'
         ];
     }
@@ -45,6 +52,7 @@ class Product {
             'name': this[_name],
             'brand': this[_brand],
             'price': this[_price],
+            'categoryId': this[_categoryId],
             'image': this[_image]
         };
     }

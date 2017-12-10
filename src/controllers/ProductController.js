@@ -14,13 +14,15 @@ class ProductController {
     }
 
     saveProduct(request, response) {
-        if(!request.body.name || !request.body.brand || !request.body.price || !request.file.image){
+        if (!request.body.name || !request.body.brand || !request.body.price
+            || !request.body.categoryId || !request.file.image) {
             response.send('please fill all required fields');
         }
-        let product = new Product(request.body.name, request.body.brand, request.body.price);
+        let product = new Product(request.body.name, request.body.brand,
+            request.body.price, request.body.categoryId);
         product.setImage(request.file.image);
         this[_productService].saveProduct(product, result => {
-            response.send({'message' : result});
+            response.send({ 'message': result });
         });
     }
 
@@ -37,18 +39,19 @@ class ProductController {
     }
 
     updateProduct(request, response) {
-        if(!request.body.name || !request.body.brand || !request.body.price){
+        if (!request.body.name || !request.body.brand || !request.body.price || !request.body.categoryId) {
             response.send('please fill all required fields');
         }
-        let product = new Product(request.body.name, request.body.brand, request.body.price);
+        let product = new Product(request.body.name, request.body.brand,
+            request.body.price, request.body.categoryId);
         this[_productService].updateProduct(product, request.query.id, result => {
-            response.send({'message' : result});
+            response.send({ 'message': result });
         });
     }
 
     deleteProduct(request, response) {
         this[_productService].deleteProduct(request.query.id, result => {
-            response.send({'message' : result});
+            response.send({ 'message': result });
         });
     }
 }

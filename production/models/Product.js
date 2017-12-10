@@ -15,15 +15,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var _name = Symbol('name'),
     _brand = Symbol('brand'),
     _price = Symbol('price'),
+    _categoryId = Symbol('categoryId'),
     _image = Symbol('image');
 
 var Product = function () {
-    function Product(name, brand, price) {
+    function Product(name, brand, price, categoryId) {
         _classCallCheck(this, Product);
 
         this[_name] = name;
         this[_brand] = brand;
         this[_price] = price;
+        this[_categoryId] = categoryId;
     }
 
     _createClass(Product, [{
@@ -35,6 +37,11 @@ var Product = function () {
         key: 'getPrice',
         value: function getPrice() {
             return this[_price];
+        }
+    }, {
+        key: 'getCategoryId',
+        value: function getCategoryId() {
+            return this[_categoryId];
         }
     }, {
         key: 'setImage',
@@ -49,7 +56,7 @@ var Product = function () {
     }, {
         key: 'getFields',
         value: function getFields() {
-            return ['name', 'brand', 'price', 'image'];
+            return ['name', 'brand', 'price', 'categoryId', 'image'];
         }
     }, {
         key: 'toJson',
@@ -58,6 +65,7 @@ var Product = function () {
                 'name': this[_name],
                 'brand': this[_brand],
                 'price': this[_price],
+                'categoryId': this[_categoryId],
                 'image': this[_image]
             };
         }

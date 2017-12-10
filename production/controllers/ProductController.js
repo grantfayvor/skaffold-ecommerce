@@ -27,10 +27,10 @@ var ProductController = function () {
     _createClass(ProductController, [{
         key: 'saveProduct',
         value: function saveProduct(request, response) {
-            if (!request.body.name || !request.body.brand || !request.body.price || !request.file.image) {
+            if (!request.body.name || !request.body.brand || !request.body.price || !request.body.categoryId || !request.file.image) {
                 response.send('please fill all required fields');
             }
-            var product = new _Product.Product(request.body.name, request.body.brand, request.body.price);
+            var product = new _Product.Product(request.body.name, request.body.brand, request.body.price, request.body.categoryId);
             product.setImage(request.file.image);
             this[_productService].saveProduct(product, function (result) {
                 response.send({ 'message': result });
@@ -53,10 +53,10 @@ var ProductController = function () {
     }, {
         key: 'updateProduct',
         value: function updateProduct(request, response) {
-            if (!request.body.name || !request.body.brand || !request.body.price) {
+            if (!request.body.name || !request.body.brand || !request.body.price || !request.body.categoryId) {
                 response.send('please fill all required fields');
             }
-            var product = new _Product.Product(request.body.name, request.body.brand, request.body.price);
+            var product = new _Product.Product(request.body.name, request.body.brand, request.body.price, request.body.categoryId);
             this[_productService].updateProduct(product, request.query.id, function (result) {
                 response.send({ 'message': result });
             });
