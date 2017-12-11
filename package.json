@@ -1,7 +1,7 @@
 {
-  "name": "express-test",
+  "name": "scaffold",
   "version": "1.0.0",
-  "description": "test",
+  "description": "framework for developing ecommerce solutions",
   "main": "index.js",
   "dependencies": {
     "body-parser": "^1.18.2",
@@ -12,12 +12,14 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1"
+    "babel-preset-es2015": "^6.24.1",
+    "csurf": "^1.9.0",
+    "shopify-cartjs": "^0.4.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build" : "babel src --watch --out-dir production",
-    "server" : "babel index.js --watch --out-file server.js"
+    "build": "babel src --watch --out-dir production",
+    "server": "babel index.js --watch --out-file server.js"
   },
   "author": "Harrison Favour",
   "license": "MIT"

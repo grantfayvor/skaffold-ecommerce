@@ -7,12 +7,18 @@ const express = require('express'),
     bodyParser = require('body-parser'),
     _chalk = require('chalk'),
     _config = require('./config'),
+    _cookieParser = require('cookie-parser'),
+    _csrf = require('csurf'),
     _notifier = _chalk.bold.blue;
 
 import { Database } from './production/config/Database';
 
 export const app = express();
 
+export const csrfProtection = _csrf({ cookie: true });
+export const parseForm = bodyParser.urlencoded({ extended: false });
+
+app.use(_cookieParser());
 app.use(bodyParser.json());
 
 let promise = new Promise((resolve, reject) => {
@@ -26,3 +32,5 @@ let promise = new Promise((resolve, reject) => {
     });
 }).then(new Database())
     .then((_config.app.es6) ? require('./src/config/routes') : require('./production/config/routes'));
+
+// export { csrfProtection, parseForm, app }
