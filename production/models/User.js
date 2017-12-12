@@ -21,7 +21,7 @@ var User = exports.User = function () {
         _classCallCheck(this, User);
 
         this[_name] = name;
-        this[_email] - email;
+        this[_email] = email;
         this[_password] = password;
     }
 
@@ -36,9 +36,14 @@ var User = exports.User = function () {
             return this[_email];
         }
     }, {
-        key: 'getPrice',
-        value: function getPrice() {
-            return this[_price];
+        key: 'setPassword',
+        value: function setPassword(password) {
+            this[_password] = password;
+        }
+    }, {
+        key: 'getPassword',
+        value: function getPassword() {
+            return this[_password];
         }
     }, {
         key: 'getFields',

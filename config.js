@@ -9,7 +9,11 @@ Object.defineProperty(exports, "__esModule", {
  */
 
 var app = {
-    "es6": false
+    jwtSecret : "love",
+    jwtSession : {
+        session : false
+    },
+    es6: false
 }
 
 exports.app = app;

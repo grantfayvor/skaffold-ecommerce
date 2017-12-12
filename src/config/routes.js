@@ -3,19 +3,37 @@
  * describes routes for the application
  */
 
-import { csrfProtection, parseForm, app } from '../../server';
+import { app, _passport, _authBehaviour } from '../../server';
 import { ProductController } from '../controllers/ProductController';
+import { UserController } from '../controllers/UserController';
 
-let _productController = new ProductController();
+const _productController = new ProductController();
+const _userController = new UserController();
 
-app.get('/', (request, response) => response.send(["Hello express", { csrfToken: req.csrfToken() }]));
+app.get('/', (request, response) => response.send(["Hello express", { csrfToken: request.csrfToken() }]));
 
-app.post('/api/product/save', csrfProtection, (request, response) => _productController.saveProduct(request, response));
+//product apis
+app.post('/api/product/save', (request, response) => _productController.saveProduct(request, response));
 
-app.get('/api/products', csrfProtection, (request, response) => _productController.findProducts(request, response));
+app.get('/api/products', (request, response) => _productController.findProducts(request, response));
 
-app.get('/api/product/find', csrfProtection, (request, response) => _productController.findProductById(request, response));
+app.get('/api/product/find', (request, response) => _productController.findProductById(request, response));
 
-app.put('/api/product/update', csrfProtection, (request, response) => _productController.updateProduct(request, response));
+app.put('/api/product/update', (request, response) => _productController.updateProduct(request, response));
 
-app.delete('/api/product/delete', csrfProtection, (request, response) => _productController.deleteProduct(request, response));
+app.delete('/api/product/delete', (request, response) => _productController.deleteProduct(request, response));
+
+//user apis
+app.post('/api/user/save', (request, response) => _userController.registerUser(request, response));
+
+app.post('/api/user/authenticate', _passport.authenticate('local', _authBehaviour), function (req, res) {
+    res.send(req.user.profile);
+});
+
+app.get('/api/users', (request, response) => _userController.findUsers(request, response));
+
+app.get('/api/user/find', (request, response) => _userController.findUserById(request, response));
+
+app.put('/api/user/update', (response, request) => _userController.updateUser(request, response));
+
+app.delete('/api/user/delete', (request, response) => _userController.deleteUser(request, response));

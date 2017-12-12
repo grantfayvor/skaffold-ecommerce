@@ -13,7 +13,8 @@ var _UserRepository = require('../repositories/UserRepository');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var _repository = Symbol('repository');
+var _bcrypt = require('bcrypt'),
+    _repository = Symbol('repository');
 
 var UserService = exports.UserService = function () {
     function UserService() {
@@ -23,11 +24,20 @@ var UserService = exports.UserService = function () {
     }
 
     _createClass(UserService, [{
-        key: 'authenticateUser',
-        value: function authenticateUser(username, password, callback) {}
+        key: 'confirmUserDetails',
+        value: function confirmUserDetails(username, password, callback) {
+            this.findOneUserByParam('email', username, function (user) {
+                if (!user[0]) return callback(new Error("invalid login details"), false);
+                if (!_bcrypt.compareSync(password, user[0].password)) {
+                    return callback(new Error("invalid login details"), false);
+                }
+                return callback(null, user[0]);
+            });
+        }
     }, {
         key: 'saveUser',
         value: function saveUser(user, callback) {
+            user.setPassword(_bcrypt.hashSync(user.getPassword(), 10));
             this[_repository].save(user, function (result) {
                 callback(result);
             });
@@ -43,6 +53,13 @@ var UserService = exports.UserService = function () {
         key: 'findUserById',
         value: function findUserById(id, callback) {
             this[_repository].findById(id, function (result) {
+                callback(result);
+            });
+        }
+    }, {
+        key: 'findOneUserByParam',
+        value: function findOneUserByParam(paramName, paramValue, callback) {
+            this[_repository].findOneByParam(paramName, paramValue, function (result) {
                 callback(result);
             });
         }

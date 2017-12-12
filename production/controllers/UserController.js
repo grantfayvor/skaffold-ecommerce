@@ -25,13 +25,6 @@ var UserController = exports.UserController = function () {
     }
 
     _createClass(UserController, [{
-        key: 'authenticateUser',
-        value: function authenticateUser(request, response) {
-            this[_userService].authenticateUser(request.body.email, request.body.password, function (result) {
-                if (result) response.send('user was successfully authenticated');else response.send('user could not be authenticated. Confirm Login details');
-            });
-        }
-    }, {
         key: 'registerUser',
         value: function registerUser(request, response) {
             var _this = this;

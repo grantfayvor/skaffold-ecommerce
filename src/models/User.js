@@ -10,7 +10,7 @@ export class User {
 
     constructor(name, email, password) {
         this[_name] = name;
-        this[_email] - email;
+        this[_email] = email;
         this[_password] = password;
     }
 
@@ -22,8 +22,12 @@ export class User {
         return this[_email];
     }
 
-    getPrice() {
-        return this[_price];
+    setPassword(password) {
+        this[_password] = password;
+    }
+
+    getPassword() {
+        return this[_password];
     }
 
     getFields() {

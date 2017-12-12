@@ -33,11 +33,11 @@ var CRUDRepository = exports.CRUDRepository = function () {
             var sql = "INSERT INTO " + this[_tableName] + " SET ?";
             this._connection.query(sql, model.toJson(), function (error, connection) {
                 if (error) {
-                    console.log(_errorNotifier("product could not be added to database"));
+                    console.log(_errorNotifier("entity could not be added to database"));
                     console.log(_errorNotifier(error));
                     callback(false);
                 } else {
-                    console.log(_successNotifier("product was successfully inserted"));
+                    console.log(_successNotifier("entity was successfully inserted"));
                     callback(true);
                 }
             });
@@ -48,11 +48,11 @@ var CRUDRepository = exports.CRUDRepository = function () {
             var sql = "UPDATE " + this[_tableName] + " SET ? WHERE id = ?";
             this._connection.query(sql, [model.toJson(), id], function (error, connection) {
                 if (error) {
-                    console.log(_errorNotifier("product could not be updated in database"));
+                    console.log(_errorNotifier("entity could not be updated in database"));
                     console.log(_errorNotifier(error));
                     callback(false);
                 } else {
-                    console.log(_successNotifier("product was successfully updated"));
+                    console.log(_successNotifier("entity was successfully updated"));
                     callback(true);
                 }
             });
@@ -63,11 +63,11 @@ var CRUDRepository = exports.CRUDRepository = function () {
             var sql = "DELETE FROM " + this[_tableName] + " WHERE id = ?";
             this._connection.query(sql, [id], function (error, connection) {
                 if (error) {
-                    console.log(_errorNotifier("product could not be updated in database"));
+                    console.log(_errorNotifier("entity could not be updated in database"));
                     console.log(_errorNotifier(error));
                     callback(false);
                 } else {
-                    console.log(_successNotifier("product was successfully deleted"));
+                    console.log(_successNotifier("entity was successfully deleted"));
                     callback(true);
                 }
             });
@@ -84,7 +84,7 @@ var CRUDRepository = exports.CRUDRepository = function () {
     }, {
         key: 'findById',
         value: function findById(id, callback) {
-            var sql = "SELECT * FROM " + this[_tableName] + " WHERE id = ?";
+            var sql = "SELECT * FROM " + this[_tableName] + " WHERE id = ? LIMIT 1";
             this._connection.query(sql, [id], function (error, result, fields) {
                 if (error) throw error;
                 callback(result);
@@ -94,6 +94,15 @@ var CRUDRepository = exports.CRUDRepository = function () {
         key: 'findByParam',
         value: function findByParam(paramName, paramValue, callback) {
             var sql = "SELECT * FROM " + this[_tableName] + " WHERE " + paramName + " = ?";
+            this._connection.query(sql, paramValue, function (error, result, fields) {
+                if (error) throw error;
+                callback(result);
+            });
+        }
+    }, {
+        key: 'findOneByParam',
+        value: function findOneByParam(paramName, paramValue, callback) {
+            var sql = "SELECT * FROM " + this[_tableName] + " WHERE " + paramName + " = ? LIMIT 1";
             this._connection.query(sql, paramValue, function (error, result, fields) {
                 if (error) throw error;
                 callback(result);

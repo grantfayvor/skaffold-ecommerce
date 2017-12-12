@@ -8,18 +8,27 @@ const express = require('express'),
     _chalk = require('chalk'),
     _config = require('./config'),
     _cookieParser = require('cookie-parser'),
+    _session = require('express-session'),
     _csrf = require('csurf'),
     _notifier = _chalk.bold.blue;
 
-import { Database } from './production/config/Database';
+import { Database } from /* (_config.app.es6) ? './src/config/Database' : */ './production/config/Database';
+import { PassportLocalService } from /* (_config.app.es6) ? './src/services/PassportLocalService' : */ './production/services/PassportLocalService';
 
 export const app = express();
 
-export const csrfProtection = _csrf({ cookie: true });
-export const parseForm = bodyParser.urlencoded({ extended: false });
+const csrfProtection = _csrf({ cookie: true });
+const parseForm = bodyParser.urlencoded({ extended: false });
+const _passportLocalService = new PassportLocalService();
+export const _passport = _passportLocalService._passport;
+export const _authBehaviour = _passportLocalService._behaviour;
 
+app.use(_session({ secret: 'love <3', resave: true, saveUninitialized: true }));
 app.use(_cookieParser());
+app.use(csrfProtection);
 app.use(bodyParser.json());
+app.use(_passport.initialize());
+app.use(_passport.session());
 
 let promise = new Promise((resolve, reject) => {
     const server = app.listen(9000, () => {
@@ -32,5 +41,3 @@ let promise = new Promise((resolve, reject) => {
     });
 }).then(new Database())
     .then((_config.app.es6) ? require('./src/config/routes') : require('./production/config/routes'));
-
-// export { csrfProtection, parseForm, app }

@@ -63,15 +63,23 @@ export class Database {
     }
 
     [_createTables]() {
-        let sql = "CREATE TABLE IF NOT EXISTS products(id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,"
-            + " name VARCHAR(120), brand VARCHAR(120), price VARCHAR(50))";
+        let sql = "CREATE TABLE IF NOT EXISTS users(id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,"
+            + "name VARCHAR(120), email VARCHAR(120), password VARCHAR(120))";
         this[_connection].query(sql, (error, result) => {
             if (error) {
-                console.log(_errorNotifier("> products table was not created"));
+                console.log(_errorNotifier("> users table was not created"));
                 throw error;
             }
-            console.log(_successNotifier("> tables are ready ..."));
-            console.log(_successNotifier("> application is ready ;)"));
+            sql = "CREATE TABLE IF NOT EXISTS products(id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,"
+                + " name VARCHAR(120), brand VARCHAR(120), price VARCHAR(50))";
+            this[_connection].query(sql, (error, result) => {
+                if (error) {
+                    console.log(_errorNotifier("> products table was not created"));
+                    throw error;
+                }
+                console.log(_successNotifier("> tables are ready ..."));
+                console.log(_successNotifier("> application is ready ;)"));
+            });
         });
     }
 

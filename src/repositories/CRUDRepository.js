@@ -21,11 +21,11 @@ export class CRUDRepository {
         let sql = "INSERT INTO " + this[_tableName] + " SET ?";
         this._connection.query(sql, model.toJson(), (error, connection) => {
             if (error) {
-                console.log(_errorNotifier("product could not be added to database"));
+                console.log(_errorNotifier("entity could not be added to database"));
                 console.log(_errorNotifier(error));
                 callback(false);
             } else {
-                console.log(_successNotifier("product was successfully inserted"));
+                console.log(_successNotifier("entity was successfully inserted"));
                 callback(true);
             }
         });
@@ -35,11 +35,11 @@ export class CRUDRepository {
         let sql = "UPDATE " + this[_tableName] + " SET ? WHERE id = ?";
         this._connection.query(sql, [model.toJson(), id], (error, connection) => {
             if (error) {
-                console.log(_errorNotifier("product could not be updated in database"));
+                console.log(_errorNotifier("entity could not be updated in database"));
                 console.log(_errorNotifier(error));
                 callback(false);
             } else {
-                console.log(_successNotifier("product was successfully updated"));
+                console.log(_successNotifier("entity was successfully updated"));
                 callback(true);
             }
         });
@@ -49,11 +49,11 @@ export class CRUDRepository {
         let sql = "DELETE FROM " + this[_tableName] + " WHERE id = ?";
         this._connection.query(sql, [id], (error, connection) => {
             if (error) {
-                console.log(_errorNotifier("product could not be updated in database"));
+                console.log(_errorNotifier("entity could not be updated in database"));
                 console.log(_errorNotifier(error));
                 callback(false);
             } else {
-                console.log(_successNotifier("product was successfully deleted"));
+                console.log(_successNotifier("entity was successfully deleted"));
                 callback(true);
             }
         });
@@ -68,7 +68,7 @@ export class CRUDRepository {
     }
 
     findById(id, callback) {
-        let sql = "SELECT * FROM " + this[_tableName] + " WHERE id = ?";
+        let sql = "SELECT * FROM " + this[_tableName] + " WHERE id = ? LIMIT 1";
         this._connection.query(sql, [id], (error, result, fields) => {
             if (error) throw error;
             callback(result);
@@ -77,6 +77,14 @@ export class CRUDRepository {
 
     findByParam(paramName, paramValue, callback) {
         let sql = "SELECT * FROM " + this[_tableName] + " WHERE " + paramName + " = ?";
+        this._connection.query(sql, paramValue, (error, result, fields) => {
+            if (error) throw error;
+            callback(result);
+        });
+    }
+
+    findOneByParam(paramName, paramValue, callback) {
+        let sql = "SELECT * FROM " + this[_tableName] + " WHERE " + paramName + " = ? LIMIT 1";
         this._connection.query(sql, paramValue, (error, result, fields) => {
             if (error) throw error;
             callback(result);

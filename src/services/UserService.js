@@ -4,7 +4,9 @@
 
 import { UserRepository } from '../repositories/UserRepository';
 
-const _repository = Symbol('repository');
+const _bcrypt = require('bcrypt'),
+    _repository = Symbol('repository');
+
 
 export class UserService {
 
@@ -12,11 +14,18 @@ export class UserService {
         this[_repository] = new UserRepository();
     }
 
-    authenticateUser(username, password, callback) {
-
+    confirmUserDetails(username, password, callback) {
+        this.findOneUserByParam('email', username, user => {
+            if (!user[0]) return callback(new Error("invalid login details"), false);
+            if (!_bcrypt.compareSync(password, user[0].password)) {
+                return callback(new Error("invalid login details"), false);
+            }
+            return callback(null, user[0]);
+        });
     }
 
     saveUser(user, callback) {
+        user.setPassword(_bcrypt.hashSync(user.getPassword(), 10));
         this[_repository].save(user, result => {
             callback(result);
         });
@@ -30,6 +39,12 @@ export class UserService {
 
     findUserById(id, callback) {
         this[_repository].findById(id, result => {
+            callback(result);
+        });
+    }
+
+    findOneUserByParam(paramName, paramValue, callback) {
+        this[_repository].findOneByParam(paramName, paramValue, result => {
             callback(result);
         });
     }
@@ -51,4 +66,5 @@ export class UserService {
             callback(result);
         });
     }
+
 }
