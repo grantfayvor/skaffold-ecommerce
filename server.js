@@ -33,7 +33,7 @@ var _authBehaviour = exports._authBehaviour = _passportLocalService._behaviour;
 
 app.use(_session({ secret: 'love <3', resave: true, saveUninitialized: true }));
 app.use(_cookieParser());
-app.use(csrfProtection);
+// app.use(csrfProtection);
 app.use(bodyParser.json());
 app.use(_passport.initialize());
 app.use(_passport.session());

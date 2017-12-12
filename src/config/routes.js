@@ -6,9 +6,12 @@
 import { app, _passport, _authBehaviour } from '../../server';
 import { ProductController } from '../controllers/ProductController';
 import { UserController } from '../controllers/UserController';
+import { request } from 'https';
+import { CartController } from '../controllers/CartController';
 
 const _productController = new ProductController();
 const _userController = new UserController();
+const _cartController = new CartController();
 
 app.get('/', (request, response) => response.send(["Hello express", { csrfToken: request.csrfToken() }]));
 
@@ -22,6 +25,17 @@ app.get('/api/product/find', (request, response) => _productController.findProdu
 app.put('/api/product/update', (request, response) => _productController.updateProduct(request, response));
 
 app.delete('/api/product/delete', (request, response) => _productController.deleteProduct(request, response));
+
+
+//cart apis
+app.get('/api/cart', (request, response) => _cartController.getCart(request, response));
+
+app.get('/apid', (req, res) => req.session.destroy);
+
+app.post('/api/cart/add', (request, response) => _cartController.addItemToCart(request, response));
+
+app.delete('/api/cart/remove', (request, response) => _cartController.removeItemFromCart(request, response));
+
 
 //user apis
 app.post('/api/user/save', (request, response) => _userController.registerUser(request, response));
