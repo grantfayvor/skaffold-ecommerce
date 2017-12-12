@@ -88,14 +88,21 @@ var Database = exports.Database = function () {
                     console.log(_errorNotifier("> users table was not created"));
                     throw error;
                 }
-                sql = "CREATE TABLE IF NOT EXISTS products(id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT," + " name VARCHAR(120), brand VARCHAR(120), price VARCHAR(50))";
+                sql = "CREATE TABLE IF NOT EXISTS categories(id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT," + "name VARCHAR(120))";
                 _this2[_connection].query(sql, function (error, result) {
                     if (error) {
-                        console.log(_errorNotifier("> products table was not created"));
+                        console.log(_errorNotifier("> categories table was not created"));
                         throw error;
                     }
-                    console.log(_successNotifier("> tables are ready ..."));
-                    console.log(_successNotifier("> application is ready ;)"));
+                    sql = "CREATE TABLE IF NOT EXISTS products(id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT," + " name VARCHAR(120), brand VARCHAR(120), price VARCHAR(50), category_id INTEGER," + " FOREIGN KEY (category_id) REFERENCES categories (id))";
+                    _this2[_connection].query(sql, function (error, result) {
+                        if (error) {
+                            console.log(_errorNotifier("> products table was not created"));
+                            throw error;
+                        }
+                        console.log(_successNotifier("> tables are ready ..."));
+                        console.log(_successNotifier("> application is ready ;)"));
+                    });
                 });
             });
         }
