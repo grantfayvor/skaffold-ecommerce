@@ -26,6 +26,19 @@
     "build": "babel src --watch --out-dir production",
     "server": "babel index.js --watch --out-file server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grantfayvor/scaffoldJS.git"
+  },
+  "keywords": [
+    "scaffold",
+    "auth",
+    "ecommerce"
+  ],
   "author": "Harrison Favour",
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/grantfayvor/scaffoldjs/issues"
+  },
+  "homepage": "https://github.com/grantfayvor/scaffoldJS#readme"
 }
