@@ -6,7 +6,6 @@
 import { app, _passportLocalService } from '../../server';
 import { ProductController } from '../controllers/ProductController';
 import { UserController } from '../controllers/UserController';
-import { request } from 'https';
 import { CartController } from '../controllers/CartController';
 
 const _productController = new ProductController();
@@ -36,8 +35,8 @@ app.delete('/api/cart/remove', (request, response) => _cartController.removeItem
 //user apis
 app.post('/api/user/save', (request, response) => _userController.registerUser(request, response));
 
-app.post('/api/user/authenticate', _passportLocalService._passport.authenticate('local', _passportLocalService._behaviour), function (req, res) {
-    res.send(req.user.profile);
+app.post('/api/user/authenticate', _passportLocalService._passport.authenticate('local', _passportLocalService._behaviour), function (request, response) {
+    response.send(request.user.profile);
 });
 
 app.get('/api/users', (request, response) => _userController.findUsers(request, response));

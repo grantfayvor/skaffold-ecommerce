@@ -9,47 +9,36 @@ _cookieParser = require('cookie-parser'),
 _session = require('express-session'),
 _chalk = require('chalk'),
 _csrf = require('csurf'),
-_notifier = _chalk.bold.blue;
+_notifier = _chalk.bold.blue,
+ProductController = require('./production/controllers/ProductController').ProductController,
+UserController = require('./production/controllers/UserController').UserController,
+CartController = require('./production/controllers/CartController').CartController;
 
 
 var Database = require('./production/config/Database');
-var PLS = require('./production/services/PassportLocalService'); //to remove
 
 var app = express();
 
 var csrfProtection = _csrf({ cookie: true });
 var parseForm = bodyParser.urlencoded({ extended: false });
-var _passportLocalService = new PLS.PassportLocalService(); //to remove
-var _passport = _passportLocalService._passport; //to remove
-var _authBehaviour = _passportLocalService._behaviour; //to remove
 
 app.use(_session({ secret: 'love <3', resave: true, saveUninitialized: true }));
 app.use(_cookieParser());
 // app.use(csrfProtection); put back when all is ready
 app.use(bodyParser.json());
 app.use(express.static('public'));
-// app.use(_passport.initialize()); //to remove
-// app.use(_passport.session()); //to remove
 
-// var promise = new Promise((resolve, reject) => {
-// // var server = app.listen(9001, () => {
-// //     console.log(_notifier("> server listening at http://" + server.address().address + ":" + server.address().port));
-// //     console.log('from kleek index');
-// // });
-// }).then(function () {
-// new Database.Database()
-// })
-// .then(routes());
-
-
-function routes() {
-return require('./production/config/routes');
-}
+var promise = new Promise((resolve, reject) => {
+var server = app.listen(9000, () => {
+    console.log(_notifier("> server listening at http://" + server.address().address + ":" + server.address().port));
+});
+}).then(new Database.Database());
 
 exports.app = app;
 exports.csrfProtection = csrfProtection;
-exports._passportLocalService = _passportLocalService;
 exports.UserService = require('./production/services/UserService').UserService;
-exports.routes = require('./production/config/routes');
+exports.ProductController = ProductController;
+exports.UserController = UserController;
+exports.CartController = CartController;
 
 
