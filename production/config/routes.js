@@ -18,10 +18,6 @@ var _productController = new _ProductController.ProductController(); /**
 var _userController = new _UserController.UserController();
 var _cartController = new _CartController.CartController();
 
-_server.app.get('/', function (request, response) {
-  return response.send(["Hello express", { csrfToken: request.csrfToken() }]);
-});
-
 //product apis
 _server.app.post('/api/product/save', function (request, response) {
   return _productController.saveProduct(request, response);

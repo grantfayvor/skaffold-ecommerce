@@ -13,8 +13,6 @@ const _productController = new ProductController();
 const _userController = new UserController();
 const _cartController = new CartController();
 
-app.get('/', (request, response) => response.send(["Hello express", { csrfToken: request.csrfToken() }]));
-
 //product apis
 app.post('/api/product/save', (request, response) => _productController.saveProduct(request, response));
 
