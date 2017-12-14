@@ -1,7 +1,9 @@
-const passport = require('passport'),
+/* const passport = require('passport'),
 LocalStrategy = require('passport-local').Strategy,
 _fields = Symbol('fields'),
-_config = Symbol('config');
+_config = Symbol('config'),
+_confirmUserDetails = Symbol('confirmUserDetails'),
+_deserializer = Symbol('deserializer');
 
 export class PassportLocalService {
 
@@ -97,4 +99,10 @@ config() {
 }
 
 
+} */
+
+class AuthenticationService {
+    constructor() {
+
+    }
 }

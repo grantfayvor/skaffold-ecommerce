@@ -7,7 +7,9 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     _cookieParser = require('cookie-parser'),
     _session = require('express-session'),
-    _csrf = require('csurf');
+    _chalk = require('chalk'),
+    _csrf = require('csurf'),
+    _notifier = _chalk.bold.blue;
 
 
 var Database = require('./production/config/Database');
