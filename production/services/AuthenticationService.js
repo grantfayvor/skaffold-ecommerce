@@ -1,91 +1,125 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.AuthenticationService = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _PassportJWTService = require("./PassportJWTService");
-
-var _UserService = require("./UserService");
-
-var _config = require("../../config");
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var _userService = Symbol('userService'),
+var passport = require('passport'),
+    LocalStrategy = require('passport-local').Strategy,
+    _fields = Symbol('fields'),
+    _config = Symbol('config');
+
+var PassportLocalService = exports.PassportLocalService = function () {
+    function PassportLocalService() {
+        var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+            fields: {
+                usernameField: 'email',
+                passwordField: 'password'
+            }, behaviour: {
+                successRedirect: '/',
+                failureRedirect: '/login',
+                session: true
+            }
+        };
+        var confirmUserDetails = arguments[1];
+        var deserializer = arguments[2];
+
+        _classCallCheck(this, PassportLocalService);
+
+        this._passport = passport;
+        this[_fields] = options.fields;
+        this._behaviour = options.behaviour;
+        this[_confirmUserDetails] = confirmUserDetails;
+        this[_deserializer] = deserializer;
+        this[_config]();
+    }
+
+    _createClass(PassportLocalService, [{
+        key: _config,
+        value: function value() {
+            var confirmUserDetails = this[_confirmUserDetails];
+            var deserializer = this[_deserializer];
+            this._passport.use(new LocalStrategy({
+                usernameField: this[_fields].usernameField,
+                passwordField: this[_fields].passwordField
+            }, function (username, password, done) {
+                confirmUserDetails(username, password, done);
+            }));
+            if (this._behaviour.session) {
+                this._passport.serializeUser(function (user, done) {
+                    done(null, user.id);
+                });
+                this._passport.deserializeUser(function (userId, done) {
+                    deserializer(userId, function (user) {
+                        done(null, user);
+                    });
+                });
+            }
+        }
+    }]);
+
+    return PassportLocalService;
+}();
+
+var _passport = require('passport'),
     _passportJWT = require('passport-jwt'),
     ExtractJWT = _passportJWT.ExtractJwt,
     JWTStrategy = _passportJWT.Strategy;
 
-var AuthenticationService = exports.AuthenticationService = function () {
-    function AuthenticationService() {
-        var _this = this;
-
-        var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { tokenExpiry: null, jwtSecret: null };
-
-        _classCallCheck(this, AuthenticationService);
-
-        this._options = options;
-        // this[_userService] = new UserService();
-        this._pJWTService = new _PassportJWTService.PassportJWTService();
-        this._passport = this._pJWTService.getPassport();
-        console.log("in constructor");
-
-        this._passport.use(new JWTStrategy({
-            secretOrKey: this._options.jwtSecret || _config.app.jwtSecret,
-            jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-            ignoreExpiration: true
-        }, function (payload, done) {
-            // this.jwtStrategyConfirmUser(payload, done);
-            _this.verifyUser(payload, done);
-        }));
-    }
-
-    _createClass(AuthenticationService, [{
-        key: "authenticate",
-        value: function authenticate() {
-            return this._passport.authenticate('jwt', {
+var PassportJWTService = exports.PassportJWTService = function () {
+    function PassportJWTService() {
+        var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+            fields: {
+                usernameField: 'email',
+                passwordField: 'password'
+            }, behaviour: {
                 successRedirect: '/',
                 failureRedirect: '/login',
-                session: false
-            });
+                session: true,
+                secretOrKey: 'secret'
+            }
+        };
+        var confirmUserDetails = arguments[1];
+        var deserializer = arguments[2];
+
+        _classCallCheck(this, PassportJWTService);
+
+        this._passport = passport;
+        this._fields = options.fields;
+        this._behaviour = options.behaviour;
+        this.confirmUserDetails = confirmUserDetails;
+        this.deserializer = deserializer;
+        this.config();
+    }
+
+    _createClass(PassportJWTService, [{
+        key: 'config',
+        value: function config() {
+            var confirmUserDetails = this.confirmUserDetails;
+            var deserializer = this.deserializer;
+            this._passport.use(new JWTStrategy({
+                secretOrKey: this._behaviour.secretOrKey,
+                jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+                ignoreExpiration: true
+            }, function (payload, done) {
+                confirmUserDetails(payload, done);
+            }));
+            if (this._behaviour.session) {
+                this._passport.serializeUser(function (user, done) {
+                    done(null, user.id);
+                });
+                this._passport.deserializeUser(function (userId, done) {
+                    deserializer(userId, function (user) {
+                        done(null, user);
+                    });
+                });
+            }
         }
-    }, {
-        key: "verifyUser",
-        value: function verifyUser(payload, callback) {
-            var _this2 = this;
-
-            _UserService.UserService.confirmUserDetails(payload, function (user) {
-                if (user !== false) {
-                    var token = _jwt.sign({
-                        id: user.id,
-                        email: user.email,
-                        exp: _this2._options.tokenExpiry || Math.floor(new Date() / 1000) + 60 * 60
-                    }, _this2._options.jwtSecret || _config.app.jwtSecret);
-                    console.log("success");
-                    console.log(token);
-                    return callback({ token: token });
-                } else {
-                    console.log("either user not found or password not match");
-                    return callback(null);
-                }
-            });
-        }
-
-        // confirmUserDetails(username, password, callback) {
-        //     this[_userService].findOneUserByParam('email', username, user => {
-        //         if (!user[0]) return callback(false);
-        //         if (!_bcrypt.compareSync(password, user[0].password)) {
-        //             return callback(false);
-        //         }
-        //         return callback(user[0]);
-        //     });
-        // }
-
     }]);
 
-    return AuthenticationService;
+    return PassportJWTService;
 }();

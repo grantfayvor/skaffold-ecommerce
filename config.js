@@ -8,11 +8,9 @@ Object.defineProperty(exports, "__esModule", {
  * Created by Harrison on 05/12/2017.
  */
 
+//this is totally not needed.
+
 var app = {
-    jwtSecret : "love",
-    jwtSession : {
-        session : false
-    },
     es6: false
 }
 

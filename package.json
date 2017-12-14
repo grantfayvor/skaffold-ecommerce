@@ -1,5 +1,5 @@
 {
-  "name": "scaffold",
+  "name": "hermes-main",
   "version": "1.0.0",
   "description": "framework for developing ecommerce solutions",
   "main": "index.js",
@@ -24,21 +24,21 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src --watch --out-dir production",
-    "server": "babel index.js --watch --out-file server.js"
+    "server": "babel main.js --watch --out-file server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/grantfayvor/scaffoldJS.git"
+    "url": "git+https://github.com/grantfayvor/hermes-main.git"
   },
   "keywords": [
-    "scaffold",
+    "hermes",
     "auth",
     "ecommerce"
   ],
   "author": "Harrison Favour",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/grantfayvor/scaffoldjs/issues"
+    "url": "https://github.com/grantfayvor/hermes-main/issues"
   },
-  "homepage": "https://github.com/grantfayvor/scaffoldJS#readme"
+  "homepage": "https://github.com/grantfayvor/hermes-main#readme"
 }

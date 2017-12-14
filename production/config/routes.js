@@ -48,10 +48,6 @@ _server.app.get('/api/cart', function (request, response) {
   return _cartController.getCart(request, response);
 });
 
-_server.app.get('/apid', function (req, res) {
-  return req.session.destroy;
-});
-
 _server.app.post('/api/cart/add', function (request, response) {
   return _cartController.addItemToCart(request, response);
 });
@@ -65,7 +61,7 @@ _server.app.post('/api/user/save', function (request, response) {
   return _userController.registerUser(request, response);
 });
 
-_server.app.post('/api/user/authenticate', _server._passport.authenticate('local', _server._authBehaviour), function (req, res) {
+_server.app.post('/api/user/authenticate', _server._passportLocalService._passport.authenticate('local', _server._passportLocalService._behaviour), function (req, res) {
   res.send(req.user.profile);
 });
 

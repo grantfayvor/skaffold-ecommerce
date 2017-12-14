@@ -15,7 +15,7 @@ export class PassportLocalService {
             failureRedirect : '/login',
             session : true
         }
-    }, ) {
+    }) {
         this._passport = passport;
         this._fields = options.fields;
         this._behaviour = options.behaviour;

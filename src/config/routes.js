@@ -3,7 +3,7 @@
  * describes routes for the application
  */
 
-import { app, _passport, _authBehaviour } from '../../server';
+import { app, _passportLocalService } from '../../server';
 import { ProductController } from '../controllers/ProductController';
 import { UserController } from '../controllers/UserController';
 import { request } from 'https';
@@ -30,8 +30,6 @@ app.delete('/api/product/delete', (request, response) => _productController.dele
 //cart apis
 app.get('/api/cart', (request, response) => _cartController.getCart(request, response));
 
-app.get('/apid', (req, res) => req.session.destroy);
-
 app.post('/api/cart/add', (request, response) => _cartController.addItemToCart(request, response));
 
 app.delete('/api/cart/remove', (request, response) => _cartController.removeItemFromCart(request, response));
@@ -40,7 +38,7 @@ app.delete('/api/cart/remove', (request, response) => _cartController.removeItem
 //user apis
 app.post('/api/user/save', (request, response) => _userController.registerUser(request, response));
 
-app.post('/api/user/authenticate', _passport.authenticate('local', _authBehaviour), function (req, res) {
+app.post('/api/user/authenticate', _passportLocalService._passport.authenticate('local', _passportLocalService._behaviour), function (req, res) {
     res.send(req.user.profile);
 });
 

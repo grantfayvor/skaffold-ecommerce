@@ -1,64 +1,100 @@
-import { PassportJWTService } from "./PassportJWTService";
-import { UserService } from "./UserService";
-import { app } from '../../config';
+const passport = require('passport'),
+LocalStrategy = require('passport-local').Strategy,
+_fields = Symbol('fields'),
+_config = Symbol('config');
 
-const _userService = Symbol('userService'),
-    _passportJWT = require('passport-jwt'),
-    ExtractJWT = _passportJWT.ExtractJwt,
-    JWTStrategy = _passportJWT.Strategy;
+export class PassportLocalService {
 
-export class AuthenticationService {
-
-    constructor(options = { tokenExpiry : null, jwtSecret : null}) {
-        this._options = options;
-        // this[_userService] = new UserService();
-        this._pJWTService = new PassportJWTService();
-        this._passport = this._pJWTService.getPassport();
-        console.log("in constructor");
-
-        this._passport.use(new JWTStrategy({
-            secretOrKey: this._options.jwtSecret || app.jwtSecret,
-            jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-            ignoreExpiration: true
-        }, (payload, done) => {
-            // this.jwtStrategyConfirmUser(payload, done);
-            this.verifyUser(payload, done);
-        }));
+constructor(options = {
+    fields: {
+        usernameField: 'email',
+        passwordField: 'password'
+    }, behaviour: {
+        successRedirect: '/',
+        failureRedirect: '/login',
+        session: true
     }
+}, confirmUserDetails, deserializer) {
+    this._passport = passport;
+    this[_fields] = options.fields;
+    this._behaviour = options.behaviour;
+    this[_confirmUserDetails] = confirmUserDetails;
+    this[_deserializer] = deserializer;
+    this[_config]();
+}
 
-    authenticate() {
-        return this._passport.authenticate('jwt', {
-            successRedirect: '/',
-            failureRedirect : '/login',
-            session: false
+[_config]() {
+    let confirmUserDetails = this[_confirmUserDetails];
+    let deserializer = this[_deserializer];
+    this._passport.use(new LocalStrategy({
+        usernameField: this[_fields].usernameField,
+        passwordField: this[_fields].passwordField
+    },
+        function (username, password, done) {
+            confirmUserDetails(username, password, done);
+        }
+    ));
+    if (this._behaviour.session) {
+        this._passport.serializeUser((user, done) => {
+            done(null, user.id);
+        });
+        this._passport.deserializeUser((userId, done) => {
+            deserializer(userId, user => {
+                done(null, user);
+            });
         });
     }
+}
 
-    verifyUser(payload, callback) {
-        UserService.confirmUserDetails(payload, user => {
-            if (user !== false) {
-                let token = _jwt.sign({
-                    id: user.id,
-                    email: user.email,
-                    exp: this._options.tokenExpiry || Math.floor(new Date() / 1000) + (60 * 60)
-                }, this._options.jwtSecret || app.jwtSecret);
-                console.log("success");
-                console.log(token);
-                return callback({ token: token });
-            } else {
-                console.log("either user not found or password not match");
-                return callback(null);
-            }
+}
+
+const _passport = require('passport'),
+_passportJWT = require('passport-jwt'),
+ExtractJWT = _passportJWT.ExtractJwt,
+JWTStrategy = _passportJWT.Strategy;
+
+export class PassportJWTService {
+
+constructor(options = {
+    fields: {
+        usernameField: 'email',
+        passwordField: 'password'
+    }, behaviour: {
+        successRedirect: '/',
+        failureRedirect: '/login',
+        session: true,
+        secretOrKey : 'secret'
+    }
+}, confirmUserDetails, deserializer) {
+    this._passport = passport;
+    this._fields = options.fields;
+    this._behaviour = options.behaviour;
+    this.confirmUserDetails = confirmUserDetails;
+    this.deserializer = deserializer;
+    this.config();
+}
+
+config() {
+    let confirmUserDetails = this.confirmUserDetails;
+    let deserializer = this.deserializer;
+    this._passport.use(new JWTStrategy({
+        secretOrKey: this._behaviour.secretOrKey,
+        jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+        ignoreExpiration: true
+    }, function (payload, done) {
+        confirmUserDetails(payload, done);
+    }));
+    if (this._behaviour.session) {
+        this._passport.serializeUser((user, done) => {
+            done(null, user.id);
+        });
+        this._passport.deserializeUser((userId, done) => {
+            deserializer(userId, user => {
+                done(null, user);
+            });
         });
     }
+}
 
-    // confirmUserDetails(username, password, callback) {
-    //     this[_userService].findOneUserByParam('email', username, user => {
-    //         if (!user[0]) return callback(false);
-    //         if (!_bcrypt.compareSync(password, user[0].password)) {
-    //             return callback(false);
-    //         }
-    //         return callback(user[0]);
-    //     });
-    // }
+
 }

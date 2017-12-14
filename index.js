@@ -3,7 +3,7 @@
  * es6 version for server.js. bootstraps the application
  */
 
-const express = require('express'),
+var express = require('express'),
     bodyParser = require('body-parser'),
     _chalk = require('chalk'),
     _config = require('./config'),
@@ -12,32 +12,34 @@ const express = require('express'),
     _csrf = require('csurf'),
     _notifier = _chalk.bold.blue;
 
-import { Database } from /* (_config.app.es6) ? './src/config/Database' : */ './production/config/Database';
-import { PassportLocalService } from /* (_config.app.es6) ? './src/services/PassportLocalService' : */ './production/services/PassportLocalService';
 
-export const app = express();
+var Database = require('./production/config/Database');
+var PLS = require('./production/services/PassportLocalService'); //to remove
 
-const csrfProtection = _csrf({ cookie: true });
-const parseForm = bodyParser.urlencoded({ extended: false });
-const _passportLocalService = new PassportLocalService();
-export const _passport = _passportLocalService._passport;
-export const _authBehaviour = _passportLocalService._behaviour;
+var app = express();
+
+var csrfProtection = _csrf({ cookie: true });
+var parseForm = bodyParser.urlencoded({ extended: false });
+var _passportLocalService = new PLS.PassportLocalService(); //to remove
+var _passport = _passportLocalService._passport; //to remove
+var _authBehaviour = _passportLocalService._behaviour; //to remove
 
 app.use(_session({ secret: 'love <3', resave: true, saveUninitialized: true }));
 app.use(_cookieParser());
-// app.use(csrfProtection);
+// app.use(csrfProtection); put back when all is ready
 app.use(bodyParser.json());
-app.use(_passport.initialize());
-app.use(_passport.session());
+app.use(express.static('public'));
+// app.use(_passport.initialize()); //to remove
+// app.use(_passport.session()); //to remove
 
-let promise = new Promise((resolve, reject) => {
-    const server = app.listen(9000, () => {
-        console.log(_notifier("  \\\\====/\\====//"));
-        console.log(_notifier("  =\\\\==//\\\\==//"));
-        console.log(_notifier("  ==\\\\//==\\\\//"));
-        console.log(_notifier("  ===\\/====\\/"));
-        console.log(_notifier("> server listening at http://"
-            + server.address().address + ":" + server.address().port + " ___________ . . ."));
+var promise = new Promise((resolve, reject) => {
+    var server = app.listen(9000, () => {
+        console.log(_notifier("> server listening at http://" + server.address().address + ":" + server.address().port));
     });
-}).then(new Database())
-    .then((_config.app.es6) ? require('./src/config/routes') : require('./production/config/routes'));
+}).then(new Database.Database())
+    .then(require('./production/config/routes'));
+
+exports.app = app;
+exports.csrfProtection = csrfProtection;
+exports._passportLocalService = _passportLocalService;
+exports.UserService = require('./production/services/UserService').UserService;
