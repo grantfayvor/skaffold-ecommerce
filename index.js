@@ -4,12 +4,12 @@
  */
 
 var express = require('express'),
-    bodyParser = require('body-parser'),
-    _cookieParser = require('cookie-parser'),
-    _session = require('express-session'),
-    _chalk = require('chalk'),
-    _csrf = require('csurf'),
-    _notifier = _chalk.bold.blue;
+bodyParser = require('body-parser'),
+_cookieParser = require('cookie-parser'),
+_session = require('express-session'),
+_chalk = require('chalk'),
+_csrf = require('csurf'),
+_notifier = _chalk.bold.blue;
 
 
 var Database = require('./production/config/Database');
@@ -31,14 +31,25 @@ app.use(express.static('public'));
 // app.use(_passport.initialize()); //to remove
 // app.use(_passport.session()); //to remove
 
-var promise = new Promise((resolve, reject) => {
-    var server = app.listen(9000, () => {
-        console.log(_notifier("> server listening at http://" + server.address().address + ":" + server.address().port));
-    });
-}).then(new Database.Database())
-    .then(require('./production/config/routes'));
+// var promise = new Promise((resolve, reject) => {
+// // var server = app.listen(9001, () => {
+// //     console.log(_notifier("> server listening at http://" + server.address().address + ":" + server.address().port));
+// //     console.log('from kleek index');
+// // });
+// }).then(function () {
+// new Database.Database()
+// })
+// .then(routes());
+
+
+function routes() {
+return require('./production/config/routes');
+}
 
 exports.app = app;
 exports.csrfProtection = csrfProtection;
 exports._passportLocalService = _passportLocalService;
 exports.UserService = require('./production/services/UserService').UserService;
+exports.routes = require('./production/config/routes');
+
+
