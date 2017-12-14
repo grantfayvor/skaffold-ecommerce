@@ -1,5 +1,5 @@
 {
-  "name": "hermes-main",
+  "name": "kleek-main",
   "version": "1.0.0",
   "description": "framework for developing ecommerce solutions",
   "main": "index.js",
@@ -28,17 +28,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/grantfayvor/hermes-main.git"
+    "url": "git+https://github.com/grantfayvor/kleek-main.git"
   },
   "keywords": [
-    "hermes",
+    "kleek",
     "auth",
     "ecommerce"
   ],
   "author": "Harrison Favour",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/grantfayvor/hermes-main/issues"
+    "url": "https://github.com/grantfayvor/kleek-main/issues"
   },
-  "homepage": "https://github.com/grantfayvor/hermes-main#readme"
+  "homepage": "https://github.com/grantfayvor/kleek-main#readme"
 }
