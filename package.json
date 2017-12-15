@@ -1,6 +1,6 @@
 {
   "name": "skaffold-ecommerce",
-  "version": "1.0.3",
+  "version": "1.0.0",
   "description": "framework for developing ecommerce solutions",
   "main": "index.js",
   "dependencies": {
