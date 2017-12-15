@@ -16,14 +16,11 @@ export class ProductController {
 
     saveProduct(request, response) {
         if (!request.body.name || !request.body.brand || !request.body.price
-            || !request.body.categoryId || !request.file.image) {
+            || !request.body.category_id || !request.file.image) {
             response.send('please fill all required fields');
         }
-/*         let product = new Product(request.body.name, request.body.brand,
-            request.body.price, request.body.categoryId); */
         let product = request.body;
         product.image = request.file.image;
-        // product.setImage(request.file.image);
         this[_productService].saveProduct(product, result => {
             response.send({ 'message': result });
         });
@@ -45,8 +42,6 @@ export class ProductController {
         if (!request.body.name || !request.body.brand || !request.body.price || !request.body.categoryId) {
             response.send('please fill all required fields');
         }
-        /* let product = new Product(request.body.name, request.body.brand,
-            request.body.price, request.body.categoryId); */
         let product = request.body;
         this[_productService].updateProduct(product, request.query.id, result => {
             response.send({ 'message': result });

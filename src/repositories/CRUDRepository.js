@@ -19,7 +19,7 @@ export class CRUDRepository {
 
     save(model, callback) {
         let sql = "INSERT INTO " + this[_tableName] + " SET ?";
-        this._connection.query(sql, model.toJson(), (error, connection) => {
+        this._connection.query(sql, model, (error, connection) => {
             if (error) {
                 console.log(_errorNotifier("entity could not be added to database"));
                 console.log(_errorNotifier(error));
@@ -33,7 +33,7 @@ export class CRUDRepository {
 
     update(model, id, callback) {
         let sql = "UPDATE " + this[_tableName] + " SET ? WHERE id = ?";
-        this._connection.query(sql, [model.toJson(), id], (error, connection) => {
+        this._connection.query(sql, [model, id], (error, connection) => {
             if (error) {
                 console.log(_errorNotifier("entity could not be updated in database"));
                 console.log(_errorNotifier(error));

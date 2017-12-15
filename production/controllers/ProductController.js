@@ -28,14 +28,11 @@ var ProductController = exports.ProductController = function () {
     _createClass(ProductController, [{
         key: 'saveProduct',
         value: function saveProduct(request, response) {
-            if (!request.body.name || !request.body.brand || !request.body.price || !request.body.categoryId || !request.file.image) {
+            if (!request.body.name || !request.body.brand || !request.body.price || !request.body.category_id || !request.file.image) {
                 response.send('please fill all required fields');
             }
-            /*         let product = new Product(request.body.name, request.body.brand,
-                        request.body.price, request.body.categoryId); */
             var product = request.body;
             product.image = request.file.image;
-            // product.setImage(request.file.image);
             this[_productService].saveProduct(product, function (result) {
                 response.send({ 'message': result });
             });
@@ -60,8 +57,6 @@ var ProductController = exports.ProductController = function () {
             if (!request.body.name || !request.body.brand || !request.body.price || !request.body.categoryId) {
                 response.send('please fill all required fields');
             }
-            /* let product = new Product(request.body.name, request.body.brand,
-                request.body.price, request.body.categoryId); */
             var product = request.body;
             this[_productService].updateProduct(product, request.query.id, function (result) {
                 response.send({ 'message': result });

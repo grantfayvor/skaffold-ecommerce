@@ -14,13 +14,13 @@ export class ProductService {
     }
 
     saveProduct(product, callback) {
-        let imageLocation = '/images/products/' + product.getName() +'.jpg';
-        let result = _fileSystem.writeFileSync(imageLocation, product.getImage());
+        let imageLocation = '/images/products/' + product.name +'.jpg';
+        let result = _fileSystem.writeFileSync(imageLocation, product.image);
         if (!result) {
             console.log('adding product failed. Could not add product image');
             return;
         }
-        product.setImage(imageLocation);
+        product.image_location;
         this[_repository].save(product, result => {
             callback(result);
         });

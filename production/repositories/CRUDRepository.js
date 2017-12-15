@@ -31,7 +31,7 @@ var CRUDRepository = exports.CRUDRepository = function () {
         key: 'save',
         value: function save(model, callback) {
             var sql = "INSERT INTO " + this[_tableName] + " SET ?";
-            this._connection.query(sql, model.toJson(), function (error, connection) {
+            this._connection.query(sql, model, function (error, connection) {
                 if (error) {
                     console.log(_errorNotifier("entity could not be added to database"));
                     console.log(_errorNotifier(error));
@@ -46,7 +46,7 @@ var CRUDRepository = exports.CRUDRepository = function () {
         key: 'update',
         value: function update(model, id, callback) {
             var sql = "UPDATE " + this[_tableName] + " SET ? WHERE id = ?";
-            this._connection.query(sql, [model.toJson(), id], function (error, connection) {
+            this._connection.query(sql, [model, id], function (error, connection) {
                 if (error) {
                     console.log(_errorNotifier("entity could not be updated in database"));
                     console.log(_errorNotifier(error));

@@ -26,13 +26,13 @@ var ProductService = exports.ProductService = function () {
     _createClass(ProductService, [{
         key: 'saveProduct',
         value: function saveProduct(product, callback) {
-            var imageLocation = '/images/products/' + product.getName() + '.jpg';
-            var result = _fileSystem.writeFileSync(imageLocation, product.getImage());
+            var imageLocation = '/images/products/' + product.name + '.jpg';
+            var result = _fileSystem.writeFileSync(imageLocation, product.image);
             if (!result) {
                 console.log('adding product failed. Could not add product image');
                 return;
             }
-            product.setImage(imageLocation);
+            product.image_location;
             this[_repository].save(product, function (result) {
                 callback(result);
             });
