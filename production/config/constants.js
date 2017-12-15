@@ -8,7 +8,9 @@ Object.defineProperty(exports, "__esModule", {
  * defines constants used by the application.
  */
 
-var constants = exports.constants = JSON.parse(require('../../../../config.json'));
+var fs = require('fs');
+
+var constants = exports.constants = JSON.parse(fs.readFileSync('../../../../config.json', 'utf8'));
 
 // export var constants = {
 

@@ -3,7 +3,9 @@
  * defines constants used by the application.
  */
 
-export var constants = JSON.parse(require('../../../../config.json'));
+var fs = require('fs');
+
+export var constants = JSON.parse(fs.readFileSync('../../../../config.json', 'utf8'));
 
 // export var constants = {
 
