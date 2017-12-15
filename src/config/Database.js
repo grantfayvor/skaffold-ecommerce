@@ -27,8 +27,8 @@ export class Database {
     [_connect]() {
         let promise = new Promise((resolve, reject) => this[_mysqlConnect]())
             .then(this[_createDatabase]())
-            .then(this[_useDatabase]())
-            .then(this[_createTables]());
+            .then(this[_useDatabase]());
+            // .then(this[_createTables]());
     }
 
     [_mysqlConnect]() {

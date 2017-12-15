@@ -41,7 +41,8 @@ var Database = exports.Database = function () {
 
             var promise = new Promise(function (resolve, reject) {
                 return _this[_mysqlConnect]();
-            }).then(this[_createDatabase]()).then(this[_useDatabase]()).then(this[_createTables]());
+            }).then(this[_createDatabase]()).then(this[_useDatabase]());
+            // .then(this[_createTables]());
         }
     }, {
         key: _mysqlConnect,

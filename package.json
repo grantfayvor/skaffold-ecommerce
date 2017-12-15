@@ -1,5 +1,5 @@
 {
-  "name": "kleek-main",
+  "name": "skaffold-main",
   "version": "1.0.3",
   "description": "framework for developing ecommerce solutions",
   "main": "index.js",
@@ -29,17 +29,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/grantfayvor/kleek-main.git"
+    "url": "git+https://github.com/grantfayvor/skaffold-main.git"
   },
   "keywords": [
-    "kleek",
+    "skaffold",
     "auth",
     "ecommerce"
   ],
   "author": "Harrison Favour",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/grantfayvor/kleek-main/issues"
+    "url": "https://github.com/grantfayvor/skaffold-main/issues"
   },
-  "homepage": "https://github.com/grantfayvor/kleek-main#readme"
+  "homepage": "https://github.com/grantfayvor/skaffold-main#readme"
 }
