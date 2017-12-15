@@ -6,6 +6,7 @@ import { UserService } from '../services/UserService';
 import { User } from '../models/User';
 
 const _userService = Symbol('userService');
+// const user = JSON.parse(fs.readFileSync('models/user.json', 'utf8'));
 
 export class UserController {
 
@@ -17,7 +18,8 @@ export class UserController {
         if (!request.body.name || !request.body.email || !request.body.password) {
             response.send('please fill all required fields');
         }
-        let user = new User(request.body.name, request.body.email, request.body.password);
+        // let user = new User(request.body.name, request.body.email, request.body.password);
+        let user = request.body;
         this[_userService].saveUser(user, result => {
             if (result) this.authenticateUser(request, response);
             else response.send({ 'message': result });;
@@ -40,7 +42,8 @@ export class UserController {
         if (!request.body.name || !request.body.email || !request.body.password) {
             response.send('please fill all required fields');
         }
-        let user = new User(request.body.name, request.body.email, request.body.password);
+        // let user = new User(request.body.name, request.body.email, request.body.password);
+        let user = request.body;
         this[_userService].updateUser(user, request.query.id, result => {
             response.send({ 'message': result });
         });

@@ -16,6 +16,7 @@ var _Product = require('../models/Product');
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var _productService = Symbol('productService');
+// const product = JSON.parse(fs.readFileSync('models/product.json', 'utf8'));
 
 var ProductController = exports.ProductController = function () {
     function ProductController() {
@@ -30,8 +31,11 @@ var ProductController = exports.ProductController = function () {
             if (!request.body.name || !request.body.brand || !request.body.price || !request.body.categoryId || !request.file.image) {
                 response.send('please fill all required fields');
             }
-            var product = new _Product.Product(request.body.name, request.body.brand, request.body.price, request.body.categoryId);
-            product.setImage(request.file.image);
+            /*         let product = new Product(request.body.name, request.body.brand,
+                        request.body.price, request.body.categoryId); */
+            var product = request.body;
+            product.image = request.file.image;
+            // product.setImage(request.file.image);
             this[_productService].saveProduct(product, function (result) {
                 response.send({ 'message': result });
             });
@@ -56,7 +60,9 @@ var ProductController = exports.ProductController = function () {
             if (!request.body.name || !request.body.brand || !request.body.price || !request.body.categoryId) {
                 response.send('please fill all required fields');
             }
-            var product = new _Product.Product(request.body.name, request.body.brand, request.body.price, request.body.categoryId);
+            /* let product = new Product(request.body.name, request.body.brand,
+                request.body.price, request.body.categoryId); */
+            var product = request.body;
             this[_productService].updateProduct(product, request.query.id, function (result) {
                 response.send({ 'message': result });
             });

@@ -16,6 +16,7 @@ var _Category = require('../models/Category');
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var _categoryService = Symbol('categoryService');
+// const category = JSON.parse(fs.readFileSync('models/category.json', 'utf8'));
 
 var CategoryController = exports.CategoryController = function () {
     function CategoryController() {
@@ -30,7 +31,8 @@ var CategoryController = exports.CategoryController = function () {
             if (!request.body.name) {
                 response.send('please fill all required fields');
             }
-            var category = new _Category.Category(request.body.name);
+            // let category = new Category(request.body.name);
+            var category = request.body;
             this[_categoryService].saveCategory(category, function (result) {
                 response.send({ 'message': result });
             });
@@ -55,7 +57,8 @@ var CategoryController = exports.CategoryController = function () {
             if (!request.body.name) {
                 response.send('please fill all required fields');
             }
-            var category = new _Category.Category(request.body.name);
+            // let category = new Category(request.body.name);
+            var category = request.body;
             this[_categoryService].updateCategory(category, request.query.id, function (result) {
                 response.send({ 'message': result });
             });

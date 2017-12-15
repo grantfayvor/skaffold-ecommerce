@@ -16,6 +16,7 @@ var _User = require('../models/User');
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var _userService = Symbol('userService');
+// const user = JSON.parse(fs.readFileSync('models/user.json', 'utf8'));
 
 var UserController = exports.UserController = function () {
     function UserController() {
@@ -32,7 +33,8 @@ var UserController = exports.UserController = function () {
             if (!request.body.name || !request.body.email || !request.body.password) {
                 response.send('please fill all required fields');
             }
-            var user = new _User.User(request.body.name, request.body.email, request.body.password);
+            // let user = new User(request.body.name, request.body.email, request.body.password);
+            var user = request.body;
             this[_userService].saveUser(user, function (result) {
                 if (result) _this.authenticateUser(request, response);else response.send({ 'message': result });;
             });
@@ -57,7 +59,8 @@ var UserController = exports.UserController = function () {
             if (!request.body.name || !request.body.email || !request.body.password) {
                 response.send('please fill all required fields');
             }
-            var user = new _User.User(request.body.name, request.body.email, request.body.password);
+            // let user = new User(request.body.name, request.body.email, request.body.password);
+            var user = request.body;
             this[_userService].updateUser(user, request.query.id, function (result) {
                 response.send({ 'message': result });
             });

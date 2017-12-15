@@ -6,6 +6,7 @@ import { CategoryService } from '../services/CategoryService';
 import { Category } from '../models/Category';
 
 const _categoryService = Symbol('categoryService');
+// const category = JSON.parse(fs.readFileSync('models/category.json', 'utf8'));
 
 export class CategoryController {
 
@@ -17,7 +18,8 @@ export class CategoryController {
         if (!request.body.name) {
             response.send('please fill all required fields');
         }
-        let category = new Category(request.body.name);
+        // let category = new Category(request.body.name);
+        let category = request.body;
         this[_categoryService].saveCategory(category, result => {
             response.send({ 'message': result });
         });
@@ -39,7 +41,8 @@ export class CategoryController {
         if (!request.body.name) {
             response.send('please fill all required fields');
         }
-        let category = new Category(request.body.name);
+        // let category = new Category(request.body.name);
+        let category = request.body;
         this[_categoryService].updateCategory(category, request.query.id, result => {
             response.send({ 'message': result });
         });
