@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var fs = require('fs');
 
-var constants = exports.constants = JSON.parse(fs.readFileSync('../../../../config.json', 'utf8'));
+var constants = exports.constants = JSON.parse(fs.readFileSync('config.json', 'utf8'));
 
 // export var constants = {
 
