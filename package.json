@@ -1,5 +1,5 @@
 {
-  "name": "skaffold-main",
+  "name": "skaffold-ecommerce",
   "version": "1.0.3",
   "description": "framework for developing ecommerce solutions",
   "main": "index.js",
@@ -29,7 +29,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/grantfayvor/skaffold-main.git"
+    "url": "git+https://github.com/grantfayvor/skaffold-ecommerce.git"
   },
   "keywords": [
     "skaffold",
@@ -39,7 +39,7 @@
   "author": "Harrison Favour",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/grantfayvor/skaffold-main/issues"
+    "url": "https://github.com/grantfayvor/skaffold-ecommerce/issues"
   },
-  "homepage": "https://github.com/grantfayvor/skaffold-main#readme"
+  "homepage": "https://github.com/grantfayvor/skaffold-ecommerce#readme"
 }
