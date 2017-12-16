@@ -12,7 +12,8 @@ _csrf = require('csurf'),
 _notifier = _chalk.bold.blue,
 ProductController = require('./production/controllers/ProductController').ProductController,
 UserController = require('./production/controllers/UserController').UserController,
-CartController = require('./production/controllers/CartController').CartController;
+CartController = require('./production/controllers/CartController').CartController,
+CategoryController = require('./production/controllers/CategoryController').CategoryController;
 
 
 var Database = require('./production/config/Database');
@@ -40,5 +41,6 @@ exports.UserService = require('./production/services/UserService').UserService;
 exports.ProductController = ProductController;
 exports.UserController = UserController;
 exports.CartController = CartController;
+exports.CategoryController = CategoryController;
 
 
