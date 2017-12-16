@@ -3,7 +3,7 @@
  */
 
 import { UserService } from '../services/UserService';
-import { User } from '../models/User';
+// import { User } from '../models/User';
 
 const _userService = Symbol('userService');
 // const user = JSON.parse(fs.readFileSync('models/user.json', 'utf8'));

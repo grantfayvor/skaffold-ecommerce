@@ -3,7 +3,7 @@
  */
 
 import { ProductService } from '../services/ProductService';
-import { Product } from '../models/Product';
+// import { Product } from '../models/Product';
 
 const _productService = Symbol('productService');
 // const product = JSON.parse(fs.readFileSync('models/product.json', 'utf8'));

@@ -3,7 +3,7 @@
  */
 
 import { CategoryService } from '../services/CategoryService';
-import { Category } from '../models/Category';
+// import { Category } from '../models/Category';
 
 const _categoryService = Symbol('categoryService');
 // const category = JSON.parse(fs.readFileSync('models/category.json', 'utf8'));
