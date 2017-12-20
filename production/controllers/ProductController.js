@@ -11,9 +11,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _ProductService = require('../services/ProductService');
 
-var _Product = require('../models/Product');
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+// import { Product } from '../models/Product';
 
 var _productService = Symbol('productService');
 // const product = JSON.parse(fs.readFileSync('models/product.json', 'utf8'));
