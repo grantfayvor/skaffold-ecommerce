@@ -21,7 +21,7 @@ var Database = require('./production/config/Database');
 var app = express();
 
 var csrfProtection = _csrf({ cookie: true });
-// var parseForm = bodyParser.urlencoded({ extended: false });
+var parseForm = bodyParser.urlencoded({ extended: false });
 
 app.use(_session({ secret: 'love <3', resave: true, saveUninitialized: true }));
 app.use(_cookieParser());
